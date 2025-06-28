@@ -56,6 +56,10 @@
                 </div>
                 <div>
                     <a class="inline-block text-black hover:text-gray-600 dark:text-white dark:hover:text-neutral-300"
+                        href="/defenses">Defenses</a>
+                </div>
+                <div>
+                    <a class="inline-block text-black hover:text-gray-600 dark:text-white dark:hover:text-neutral-300"
                         href="#">About</a>
                 </div>
             </div>

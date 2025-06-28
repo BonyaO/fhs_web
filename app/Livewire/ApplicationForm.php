@@ -48,7 +48,7 @@ class ApplicationForm extends Component implements HasForms, HasInfolists
                     'qualifications' => Auth::user()->application->qualifications,
                 ])
             )->stream();
-        }, 'FHS-'.Auth::user()->application->name.'-'.Auth::user()->application->surname.'.pdf');
+        }, 'FHS-'.Auth::user()->application->full_name.'.pdf');
     }
 
     public function toggleEdit()
@@ -117,10 +117,8 @@ class ApplicationForm extends Component implements HasForms, HasInfolists
                 // TAB2: PERSONAL
                 Wizard\Step::make('Personal Information')
                     ->schema([
-                        Forms\Components\TextInput::make('name')
-                            ->required()
-                            ->maxLength(255),
-                        Forms\Components\TextInput::make('surname')
+                        Forms\Components\TextInput::make('full_name')
+                            ->label('Full name (As on Birth Certificate)')
                             ->required()
                             ->maxLength(255),
                         Forms\Components\DatePicker::make('dob')
@@ -301,8 +299,7 @@ class ApplicationForm extends Component implements HasForms, HasInfolists
                 Tabs::make('Tabs')->tabs([
                     Tabs\Tab::make('personal information')
                         ->schema([
-                            TextEntry::make('name'),
-                            TextEntry::make('surname'),
+                            TextEntry::make('full_name')->label('Full Name'),
                             TextEntry::make('user.email')->label('Email'),
                             TextEntry::make('address'),
                             TextEntry::make('telephone'),

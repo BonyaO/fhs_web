@@ -53,10 +53,8 @@ class ApplicationResource extends Resource
                     // TAB2: PERSONAL
                     Wizard\Step::make('Personal Information')
                         ->schema([
-                            Forms\Components\TextInput::make('name')
-                                ->required()
-                                ->maxLength(255),
-                            Forms\Components\TextInput::make('surname')
+                            Forms\Components\TextInput::make('full_name')
+                                ->label('Full name (As on Birth Certificate)')
                                 ->required()
                                 ->maxLength(255),
                             Forms\Components\TextInput::make('email')
@@ -293,9 +291,7 @@ class ApplicationResource extends Resource
                 Tables\Columns\TextColumn::make('admitted_on'),
                 Tables\Columns\TextColumn::make('country')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('surname')
+                Tables\Columns\TextColumn::make('full_name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
@@ -335,8 +331,7 @@ class ApplicationResource extends Resource
                         ->exports([
                             ExcelExport::make()->withColumns([
                                 Column::make('id')->heading('Number'),
-                                Column::make('name')->heading('Name'),
-                                Column::make('surname')->heading('Surname'),
+                                Column::make('full_name')->heading('Full Name'),
                                 Column::make('dob')->format('d/m/Y')->heading('Date of birth'),
                                 Column::make('pob')->heading('Place of birth'),
                                 Column::make('gender')->heading('Gender'),
