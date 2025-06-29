@@ -1,3 +1,4 @@
+@extends('layouts.app')
 
 @section('title', 'Defense Details')
 
@@ -60,28 +61,33 @@
                 <h2 class="text-2xl font-bold text-gray-900 mb-4 border-b border-gray-200 pb-2">
                     <i class="fas fa-user-graduate mr-2 text-purple-600"></i>Candidate Information
                 </h2>
-                <div class="flex items-start gap-6">
-                    @if($defense->student_photo)
-                        <img src="{{ asset('storage/' . $defense->student_photo) }}" 
-                             alt="Photo de {{ $defense->student_name }}"
-                             class="w-32 h-32 rounded-lg object-cover shadow-md">
-                    @else
-                        <div class="w-32 h-32 rounded-lg bg-gray-200 flex items-center justify-center shadow-md">
-                            <i class="fas fa-user text-gray-400 text-4xl"></i>
-                        </div>
-                    @endif
-                    <div class="flex-1">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ $defense->student_name }}</h3>
-                        <p class="text-gray-600 mb-4">
-                            <span class="font-medium">Registration Number:</span> {{ $defense->registration_number }}
-                        </p>
-                        <div>
-                            <h4 class="font-semibold text-gray-900 mb-2">Thesis Title:</h4>
-                            <p class="text-gray-800 leading-relaxed">{{ $defense->thesis_title }}</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="flex items-start gap-6">
+                        @if($defense->student_photo)
+                            <img src="{{ asset('storage/' . $defense->student_photo) }}" 
+                                alt="Photo de {{ $defense->student_name }}"
+                                class="w-32 h-32 rounded-lg object-cover shadow-md">
+                        @else
+                            <div class="w-32 h-32 rounded-lg bg-gray-200 flex items-center justify-center shadow-md">
+                                <i class="fas fa-user text-gray-400 text-4xl"></i>
+                            </div>
+                        @endif
+                        <div class="flex-1">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ $defense->student_name }}</h3>
+                            <p class="text-gray-600 mb-4">
+                                <span class="font-medium">Registration Number:</span> {{ $defense->registration_number }}
+                            </p>
+                            
                         </div>
                     </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900 mb-2">Thesis Title:</h4>
+                        <p class="text-gray-800 leading-relaxed">{{ $defense->thesis_title }}</p>
+                    </div>
                 </div>
+                
             </div>
+            
 
             <!-- Jury Information -->
             <div class="mb-8">
@@ -140,20 +146,7 @@
                 </div>
             @endif
 
-            <!-- Download/Print Actions -->
-            <div class="bg-gray-50 p-4 rounded-lg">
-                <h3 class="font-semibold text-gray-900 mb-3">Actions</h3>
-                <div class="flex gap-3">
-                    <button onclick="window.print()" 
-                            class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                        <i class="fas fa-print mr-2"></i> Print
-                    </button>
-                    <button onclick="downloadPDF()" 
-                            class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
-                        <i class="fas fa-download mr-2"></i> Download PDF
-                    </button>
-                </div>
-            </div>
+            
         </div>
     </div>
 </div>

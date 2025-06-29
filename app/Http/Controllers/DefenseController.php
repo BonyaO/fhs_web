@@ -20,6 +20,9 @@ class DefenseController extends Controller
                   ->orWhere('venue', 'like', "%{$search}%")
                   ->orWhere('jury_number', 'like', "%{$search}%")
                   ->orWhere('registration_number', 'like', "%{$search}%")
+                  ->orWhere('president_name', 'like', "%{$search}%")
+                  ->orWhere('rapporteur_name', 'like', "%{$search}%")
+                  ->orWhere('jury_members', 'like', "%{$search}%")
                   ->orWhere('thesis_title', 'like', "%{$search}%");
             });
         }
