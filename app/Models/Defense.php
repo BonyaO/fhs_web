@@ -29,9 +29,9 @@ class Defense extends Model
     ];
 
     protected $casts = [
+        'jury_members' => 'array',
         'date' => 'date',
         'time' => 'datetime:H:i',
-        'jury_members' => 'array'
     ];
 
     // Accessor for formatted date and time

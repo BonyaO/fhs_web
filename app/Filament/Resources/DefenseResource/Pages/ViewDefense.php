@@ -1,6 +1,5 @@
 <?php
 
-// Pages/ViewDefense.php
 namespace App\Filament\Resources\DefenseResource\Pages;
 
 use App\Filament\Resources\DefenseResource;
@@ -26,59 +25,90 @@ class ViewDefense extends ViewRecord
     {
         return $infolist
             ->schema([
-                Section::make('Informations de la soutenance')
+                Section::make('Defense Details')
                     ->schema([
                         TextEntry::make('date')
                             ->label('Date')
                             ->date('d/m/Y'),
                         TextEntry::make('time')
-                            ->label('Heure')
+                            ->label('Time')
                             ->time('H:i'),
                         TextEntry::make('venue')
-                            ->label('Salle'),
+                            ->label('Venue'),
                         TextEntry::make('jury_number')
-                            ->label('Numéro de Jury'),
+                            ->label('Jury Number'),
                     ])->columns(2),
 
-                Section::make('Informations de l\'étudiant')
+                Section::make('Student Information')
                     ->schema([
                         ImageEntry::make('student_photo')
                             ->label('Photo')
                             ->circular()
                             ->size(100),
                         TextEntry::make('student_name')
-                            ->label('Nom de l\'étudiant'),
+                            ->label('Student Name'),
                         TextEntry::make('registration_number')
-                            ->label('Numéro d\'inscription'),
+                            ->label('Registration Number'),
                         TextEntry::make('thesis_title')
-                            ->label('Titre de la thèse')
+                            ->label('Thesis Title')
                             ->columnSpanFull(),
                     ])->columns(3),
 
-                Section::make('Composition du Jury')
+                Section::make('Jury Members')
                     ->schema([
                         TextEntry::make('president_info')
-                            ->label('Président'),
+                            ->label('President'),
                         TextEntry::make('rapporteur_info')
                             ->label('Rapporteur'),
                         TextEntry::make('jury_members')
-                            ->label('Autres membres')
-                            ->formatStateUsing(function ($state) {
-                                if (!$state) return 'Aucun';
+                            ->label('Members')
+                            ->getStateUsing(function ($record) {
+                                $members = $record->jury_members;
                                 
-                                return collect($state)->map(function ($member) {
-                                    $title = $member['title'] ?? '';
+                                // Handle empty case
+                                if (empty($members)) {
+                                    return 'No members found';
+                                }
+                                
+                                // Handle JSON string
+                                if (is_string($members)) {
+                                    $decoded = json_decode($members, true);
+                                    if (json_last_error() === JSON_ERROR_NONE) {
+                                        $members = $decoded;
+                                    } else {
+                                        return 'Invalid data format';
+                                    }
+                                }
+                                
+                                // Handle non-array
+                                if (!is_array($members)) {
+                                    return 'Invalid data format';
+                                }
+                                
+                                // Process members
+                                $formatted = [];
+                                foreach ($members as $member) {
+                                    if (!is_array($member)) continue;
+                                    
+                                    $title = isset($member['title']) && !empty($member['title']) 
+                                        ? $member['title'] . ' ' 
+                                        : '';
                                     $name = $member['name'] ?? '';
-                                    return $title ? "$title $name" : $name;
-                                })->join(', ');
+                                    
+                                    if (!empty($name)) {
+                                        $formatted[] = trim($title . $name);
+                                    }
+                                }
+                                
+                                return empty($formatted) ? 'No valid members found' : implode(', ', $formatted);
                             })
                             ->columnSpanFull(),
                     ])->columns(2),
 
-                Section::make('Informations additionnelles')
+                Section::make('Additional Information')
                     ->schema([
                         TextEntry::make('status')
-                            ->label('Statut')
+                            ->label('Status')
                             ->badge()
                             ->colors([
                                 'scheduled' => 'warning',
@@ -87,10 +117,10 @@ class ViewDefense extends ViewRecord
                                 'cancelled' => 'danger',
                             ])
                             ->formatStateUsing(fn (string $state): string => match ($state) {
-                                'scheduled' => 'Programmée',
-                                'in_progress' => 'En cours',
-                                'completed' => 'Terminée',
-                                'cancelled' => 'Annulée',
+                                'scheduled' => 'Scheduled',
+                                'in_progress' => 'In Progress',
+                                'completed' => 'Completed',
+                                'cancelled' => 'Cancelled',
                             }),
                         TextEntry::make('notes')
                             ->label('Notes')
