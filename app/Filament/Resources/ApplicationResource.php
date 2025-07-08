@@ -53,7 +53,7 @@ class ApplicationResource extends Resource
                     // TAB2: PERSONAL
                     Wizard\Step::make('Personal Information')
                         ->schema([
-                            Forms\Components\TextInput::make('full_name')
+                            Forms\Components\TextInput::make('fullname')
                                 ->label('Full name (As on Birth Certificate)')
                                 ->required()
                                 ->maxLength(255),
@@ -291,7 +291,7 @@ class ApplicationResource extends Resource
                 Tables\Columns\TextColumn::make('admitted_on'),
                 Tables\Columns\TextColumn::make('country')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('full_name')
+                Tables\Columns\TextColumn::make('fullname')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
@@ -331,7 +331,7 @@ class ApplicationResource extends Resource
                         ->exports([
                             ExcelExport::make()->withColumns([
                                 Column::make('id')->heading('Number'),
-                                Column::make('full_name')->heading('Full Name'),
+                                Column::make('fullname')->heading('Full Name'),
                                 Column::make('dob')->format('d/m/Y')->heading('Date of birth'),
                                 Column::make('pob')->heading('Place of birth'),
                                 Column::make('gender')->heading('Gender'),

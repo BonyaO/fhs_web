@@ -7,6 +7,7 @@
             <x-filament::button color="danger" wire:click="cancelPayment">
                 Cancel
             </x-filament::button>
+            
         @elseif (auth()->user()->payment->status == 'FAILED')
             <div class="border border-gray-400 rounded-lg p-4 space-y-4 text-center">
                 <h3 class="text-2xl font-semibold text-orange-600">Oops!! An error occured</h3>
@@ -16,11 +17,12 @@
                 </x-filament::button>
             </div>
         @else
+            @livewire('application-progress')
             <x-filament::section collapsible>
                 <x-slot name="heading">
                     Step1: Fill the application form
                 </x-slot>
-
+                
                 @livewire('application-form')
             </x-filament::section>
 

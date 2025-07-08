@@ -12,27 +12,42 @@ use Illuminate\Support\Facades\Blade;
 class SubmitApplication extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
-
     protected static ?string $title = 'Your application';
-
     protected static string $view = 'filament.guest.pages.guest.submit-application';
 
-    // protected static bool $shouldRegisterNavigation = false;
     public $paymentInfo;
+
+    // Add reactive properties
+    protected $listeners = ['qualificationAdded' => 'refreshHeaderActions'];
+
+    public function mount()
+    {
+        // Ensure we have fresh data on mount
+        $this->refreshHeaderActions();
+    }
+
+    public function refreshHeaderActions()
+    {
+        // This will trigger a re-render of the header actions
+        $this->dispatch('$refresh');
+    }
 
     protected function getHeaderActions(): array
     {
-        $user_application = auth()->user()->application;
+        // Fresh query each time to get current state
+        $user_application = auth()->user()->fresh()->application;
 
-        if (isset($user_application) && ! isset($user_application->validated_on) && count($user_application->qualifications) > 0) {
+        if (isset($user_application) && !isset($user_application->validated_on) && $user_application->qualifications()->count() > 0) {
             return [
-                \Filament\Actions\Action::make('Validate Application')
+                \Filament\Actions\Action::make('validateApplication')
+                    ->label('Validate Application')
                     ->color('warning')
                     ->requiresConfirmation()
-                    ->modalDescription('You will not be able to make changes after this after submitting this. Are you sure to proceed?')
+                    ->modalDescription('You will not be able to make changes after submitting this. Are you sure to proceed?')
                     ->action(function () {
                         auth()->user()->application->validated_on = \Carbon\Carbon::now();
                         auth()->user()->application->save();
+                        
                         Notification::make()
                             ->title('Your application has now been validated')
                             ->success()
@@ -42,11 +57,14 @@ class SubmitApplication extends Page
                     }),
             ];
         } elseif (isset($user_application) && $user_application->validated_on) {
-            return [\Filament\Actions\Action::make('Download Application')
-                ->color('primary')
-                ->action(function () {
-                    return $this->downloadForm();
-                })];
+            return [
+                \Filament\Actions\Action::make('downloadApplication')
+                    ->label('Download Application')
+                    ->color('primary')
+                    ->action(function () {
+                        return $this->downloadForm();
+                    })
+            ];
         } else {
             return [];
         }
@@ -61,7 +79,7 @@ class SubmitApplication extends Page
                     'qualifications' => auth()->user()->application->qualifications,
                 ])
             )->stream();
-        }, 'coltech24-'.auth()->user()->application->name.'-'.auth()->user()->application->surname.'.pdf');
+        }, 'FHS25-' . auth()->user()->application->fullname . '.pdf');
     }
 
     public function cancelPayment()
@@ -71,65 +89,26 @@ class SubmitApplication extends Page
             $transaction->delete();
             Notification::make()
                 ->title('Your transaction has been cancelled.')
-                ->warning()
+                ->success()
                 ->send();
-            $this->redirect('/guest/process-payment');
         }
     }
 
     public function validatePayment()
     {
-        $campay = new Campay("https://www.campay.net/api/");
-
-        $paymentRecord = auth()->user()->payment;
-        $res = $campay->getTransactionStatus($paymentRecord->reference);
-        $transaction_feedback = json_decode($res);
-
-        if ($transaction_feedback->status == 'SUCCESSFUL') {
-            $paymentRecord->update(json_decode($res, true));
+        $campay = new Campay();
+        $response = $campay->collect($this->paymentInfo);
+        
+        if ($response['status'] == 'SUCCESSFUL') {
             Notification::make()
-                ->title('Your payment has been validated')
+                ->title('Payment validated successfully')
+                ->success()
                 ->send();
-        }
-
-        if ($transaction_feedback->status == 'PENDING') {
-            // $paymentRecord->update(json_decode($res, true));
+        } else {
             Notification::make()
-                ->title('Your payment is still pending. Try again.')
-                ->warning()
-                ->send();
-        }
-
-        if ($transaction_feedback->status == 'FAILED') {
-            $paymentRecord->update(json_decode($res, true));
-            Notification::make()
-                ->title('Your payment has failed')
+                ->title('Payment validation failed')
                 ->danger()
                 ->send();
         }
-    }
-
-    public function makePayment()
-    {
-        $campay = new Campay();
-
-        $data = [
-            'amount' => 3,
-            'currency' => 'XAF',
-            'from' => '237672374414',
-            'description' => 'test payment',
-        ];
-        $res = $campay->collect($data);
-        $decoded_response = json_decode($res);
-        $this->paymentInfo = $decoded_response;
-
-        if (auth()->user()->payment) {
-            auth()->user()->payment->delete();
-        }
-
-        Payments::create([
-            'reference' => $decoded_response->reference,
-            'user_id' => auth()->id(),
-        ]);
     }
 }

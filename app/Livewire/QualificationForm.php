@@ -23,7 +23,6 @@ class QualificationForm extends Component implements HasForms, HasTable
     use InteractsWithTable;
 
     public Qualification $qualification;
-
     public ?array $data = [];
 
     public function mount(): void
@@ -37,7 +36,6 @@ class QualificationForm extends Component implements HasForms, HasTable
             Repeater::make('Your certificate')
                 ->label('Register your Secondary and High School Information')
                 ->defaultItems(2)
-                // ->deletable(false)
                 ->maxItems(2)
                 ->minItems(2)
                 ->schema([
@@ -87,23 +85,44 @@ class QualificationForm extends Component implements HasForms, HasTable
             ])
             ->headerActions([
                 \Filament\Tables\Actions\CreateAction::make()
-                    ->visible(isset(Auth::user()->application) && ! isset(Auth::user()->application->validated_on))
+                    ->visible(isset(Auth::user()->application) && !isset(Auth::user()->application->validated_on))
                     ->form($this->formFields())
                     ->mutateFormDataUsing(function (array $data) {
                         $data['application_id'] = Auth::user()->application?->id;
-
                         return $data;
+                    })
+                    ->after(function () {
+                        // Emit event to refresh parent component
+                        $this->dispatch('qualificationAdded');
+                        
+                        Notification::make()
+                            ->title('Qualification added successfully')
+                            ->success()
+                            ->send();
                     }),
             ])
             ->actions([
                 \Filament\Tables\Actions\EditAction::make()
-                    ->visible(! isset(Auth::user()->application->validated_on))
-                    ->form($this->formFields()),
+                    ->visible(!isset(Auth::user()->application->validated_on))
+                    ->form($this->formFields())
+                    ->after(function () {
+                        // Emit event to refresh parent component
+                        $this->dispatch('qualificationAdded');
+                        
+                        Notification::make()
+                            ->title('Qualification updated successfully')
+                            ->success()
+                            ->send();
+                    }),
                 \Filament\Tables\Actions\DeleteAction::make()
-                    ->visible(! isset(Auth::user()->application->validated_on))
+                    ->visible(!isset(Auth::user()->application->validated_on))
                     ->action(function (Qualification $record) {
                         Storage::delete($record->certificate);
                         $record->delete();
+                        
+                        // Emit event to refresh parent component
+                        $this->dispatch('qualificationAdded');
+                        
                         Notification::make()
                             ->title('Record has been removed')
                             ->success()

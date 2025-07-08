@@ -83,7 +83,7 @@
                 {{-- middle --}}
                 <td style="text-align: center">
                     <img width="85" height="85" style="margin: 0 auto; display: inline-block"
-                        src="{{ getImage(asset('/images/uba.png')) }}" alt="University of Bamenda logo">
+                        src="{{ getImage(public_path('images/uba.png')) }}" alt="University of Bamenda logo">
                 </td>
                 <td></td>
                 {{-- last --}}

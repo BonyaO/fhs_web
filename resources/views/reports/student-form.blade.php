@@ -12,19 +12,19 @@
     @endphp
 
     <div class="text-center" style="margin: 20px 0;">
-        <h1>Entrance Examination Form / Admission 2024/2025</h1>
+        <h1>Entrance Examination Form / Admission 2025/2026</h1>
     </div>
 
     <div style="margin-bottom: 10px">
         <span>Application Number:
         <strong>FHS{{ $student->option === 1 ? 'MLS' : 'NUS' }}24{{ $prependedString }}</strong></span>
-        <span style="color: orangered; float: right;">EXAMINATION DATE: 14/09/2024</span>
+        <span style="color: orangered; float: right;">EXAMINATION DATE: 14/09/2025</span>
     </div>
 
     <h4>Personal Information</h4>
     <table>
         <tr>
-            <td>Name: <strong>{{ $student->name }} {{ $student->surname }}</strong></td>
+            <td>Name: <strong>{{ $student->fullname }}</strong></td>
             <td>Email: <strong>{{ $student->email }}</strong></td>
             <td rowspan="4" style="text-align: center; padding: 0;"><img src="{{ image('storage/' . $student->passport) }}"
                     alt="" width="120" height="120"></td>
@@ -98,7 +98,7 @@
         <li>A registration form to be completed online at the website of the
             <a href="https://fhs.uniba.cm">Faculty of Health Sciences (FHS)</a>
         </li>
-        <li> A certified true copy of birth certificate dated not more than six (6) months</li>
+        <li>A certified true copy of birth certificate dated not more than six (6) months</li>
         <li>Medical Certificate signed by a competent public service medical doctor.</li>
         <li>A certified true copy of GCE A/L or Baccalaureate or equivalent diploma dated not more than six (6) months
         </li>

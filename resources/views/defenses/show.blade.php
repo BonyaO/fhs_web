@@ -119,7 +119,7 @@
                 @if($defense->jury_members && count($defense->jury_members) > 0)
                     <div class="mt-6">
                         <h3 class="font-semibold text-gray-900 mb-3">
-                            <i class="fas fa-user-friends mr-2 text-purple-600"></i>Other Members
+                            <i class="fas fa-user-friends mr-2 text-purple-600"></i>Examiner
                         </h3>
                         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                             @foreach($defense->jury_members as $member)

@@ -170,7 +170,7 @@
                                     </div>
                                     @if($defense->jury_members && count($defense->jury_members) > 0)
                                         <div class="mt-2">
-                                            <span class="font-medium text-purple-700">Members:</span>
+                                            <span class="font-medium text-purple-700">Examiners:</span>
                                             @foreach($defense->jury_members as $member)
                                                 <span class="block text-gray-800 mt-1 ml-2">
                                                     {{ isset($member['title']) ? $member['title'] . ' ' : '' }}{{ $member['name'] ?? '' }}

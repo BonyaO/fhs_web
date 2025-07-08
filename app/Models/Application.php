@@ -14,7 +14,7 @@ class Application extends Model
         'user_id',
         'exam_center_id',
         'region_id', 'division_id', 'sub_division_id',
-        'full_name',
+        'fullname',
         'dob',
         'pob',
         'primary_language',
