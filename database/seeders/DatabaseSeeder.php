@@ -15,12 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
-            'name' => 'testuser',
-            'email' => 'user@test.com',
-            'password' => Hash::make('testuser'),
-            'isAdmin' => true,
-        ]);
+        
 
         Artisan::call('shield:generate --all');
         Artisan::call('shield:super-admin', [
@@ -28,11 +23,12 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call([
-            DepartmentOptionSeeder::class,
-            SubDivisionSeeder::class,
-            RegionSeeder::class,
-            ExamCenterSeeder::class,
-            QualificationTypeSeeder::class,
+            JournalSettingsSeeder::class,
+            EditorialBoardSeeder::class,
+            VolumeSeeder::class,
+            IssueSeeder::class,
+            AuthorSeeder::class,
+            ArticleSeeder::class,
         ]);
     }
 }
