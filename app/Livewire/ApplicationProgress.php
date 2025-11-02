@@ -14,11 +14,20 @@ class ApplicationProgress extends Component
         'validation' => 'Application Validated'
     ];
 
-    protected $listeners = ['qualificationAdded' => '$refresh'];
+    protected $listeners = [
+        'qualificationAdded' => '$refresh',
+        'applicationUpdated' => '$refresh',
+        'paymentCompleted' => '$refresh',
+        'applicationValidated' => '$refresh'
+    ];
 
     public function getStepStatus($step)
     {
         $user = Auth::user();
+        
+        if (!$user) {
+            return false;
+        }
         
         switch ($step) {
             case 'payment':
@@ -40,6 +49,21 @@ class ApplicationProgress extends Component
                $this->getStepStatus('application') && 
                $this->getStepStatus('qualifications') && 
                !$this->getStepStatus('validation');
+    }
+
+    public function getCurrentStep()
+    {
+        foreach (array_keys($this->steps) as $index => $step) {
+            if (!$this->getStepStatus($step)) {
+                return $index + 1;
+            }
+        }
+        return count($this->steps); // All steps completed
+    }
+
+    public function isStepActive($stepIndex)
+    {
+        return $stepIndex <= $this->getCurrentStep();
     }
 
     public function render()

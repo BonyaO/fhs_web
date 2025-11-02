@@ -33,10 +33,10 @@ class PaymentForm extends Component
         $this->processing = true;
         $this->validate();
 
-        $campay = new Campay("https://www.campay.net/api/");
+        $campay = new Campay();
 
         $data = [
-            'amount' => 1000,
+            'amount' => 3,
             'currency' => 'XAF',
             'from' => '237'.$this->phone_number,
             'description' => 'Platform fee',

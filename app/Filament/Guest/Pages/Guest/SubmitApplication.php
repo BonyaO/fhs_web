@@ -40,16 +40,24 @@ class SubmitApplication extends Page
         if (isset($user_application) && !isset($user_application->validated_on) && $user_application->qualifications()->count() > 0) {
             return [
                 \Filament\Actions\Action::make('validateApplication')
-                    ->label('Validate Application')
+                    ->label('Finalise Application')
                     ->color('warning')
                     ->requiresConfirmation()
-                    ->modalDescription('You will not be able to make changes after submitting this. Are you sure to proceed?')
+                    ->modalHeading('Verify Your Application Details')
+                    ->modalDescription('Please review all your information carefully before confirming. You will not be able to make changes after submitting.')
+                    ->modalContent(view('components.application-verification-modal', [
+                        'application' => $user_application,
+                        'qualifications' => $user_application->qualifications
+                    ]))
+                    ->modalSubmitActionLabel('Confirm & Submit Application')
+                    ->modalCancelActionLabel('Cancel')
+                    ->modalWidth('7xl')
                     ->action(function () {
                         auth()->user()->application->validated_on = \Carbon\Carbon::now();
                         auth()->user()->application->save();
                         
                         Notification::make()
-                            ->title('Your application has now been validated')
+                            ->title('Your application has now been confirmed and submitted.')
                             ->success()
                             ->send();
 

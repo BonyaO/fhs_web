@@ -13,7 +13,7 @@
         <form wire:submit="edit">
             {{ $this->editForm }}
 
-            <x-filament::button type="sumbit" style="margin-top: 1rem;">
+            <x-filament::button type="submit" style="margin-top: 1rem;">
                 Update application
             </x-filament::button>
         </form>
@@ -21,8 +21,8 @@
         <form wire:submit="create">
             {{ $this->createForm }}
 
-            <x-filament::button type="sumbit" style="margin-top: 1rem;">
-                Submit application
+            <x-filament::button type="submit" style="margin-top: 1rem;">
+                Save Application
             </x-filament::button>
         </form>
     @endif
