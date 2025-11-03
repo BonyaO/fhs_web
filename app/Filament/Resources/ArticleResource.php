@@ -98,14 +98,14 @@ class ArticleResource extends Resource
                     ])
                     ->columns(2),
 
-                Forms\Components\Section::make('Authors')
+                Forms\Components\Section::make('authors')
                     ->schema([
-                        Forms\Components\Repeater::make('articleAuthors')
+                        Forms\Components\Repeater::make('authors')
                             ->relationship()
                             ->schema([
                                 Forms\Components\Select::make('author_id')
                                     ->label('Author')
-                                    ->relationship('author', 'surname')
+                                    ->options(Author::all()->pluck('full_name', 'id'))
                                     ->getOptionLabelFromRecordUsing(fn ($record) => "{$record->full_name} ({$record->affiliation})")
                                     ->required()
                                     ->searchable(['first_name', 'surname', 'email'])
@@ -128,7 +128,7 @@ class ArticleResource extends Resource
                                 Forms\Components\TextInput::make('author_order')
                                     ->label('Order')
                                     ->numeric()
-                                    ->default(fn ($get) => $get('../../articleAuthors') ? count($get('../../articleAuthors')) + 1 : 1)
+                                    ->default(fn ($get) => $get('../../authors') ? count($get('../../authors')) + 1 : 1)
                                     ->required()
                                     ->minValue(1)
                                     ->columnSpan(1),

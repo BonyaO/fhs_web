@@ -89,7 +89,6 @@ class Article extends Model
     {
         return $this->belongsToMany(Author::class)
             ->withPivot('author_order', 'is_corresponding', 'affiliation_at_time', 'contribution')
-            ->withTimestamps()
             ->orderBy('author_order');
     }
 
