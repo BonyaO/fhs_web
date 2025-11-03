@@ -12,12 +12,6 @@ class JournalSettingsSeeder extends Seeder
      */
     public function run(): void
     {
-        // Seed journal settings
-        \DB::table('journal_settings')->insert([
-            'name' => 'FHS Journal',
-            'issn' => '1234-5678',
-            'publisher' => 'FHS Publishing',
-            'contact_email' => 'contact@fhsjournal.com',
-        ]);
+    \App\Models\JournalSettings::factory()->create();
     }
 }

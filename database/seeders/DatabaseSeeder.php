@@ -17,16 +17,7 @@ class DatabaseSeeder extends Seeder
     {
         
 
-        Artisan::call('shield:generate --all');
-        Artisan::call('shield:super-admin', [
-            '--user' => 1,
-        ]);
-
         $this->call([
-            JournalSettingsSeeder::class,
-            EditorialBoardSeeder::class,
-            VolumeSeeder::class,
-            IssueSeeder::class,
             AuthorSeeder::class,
             ArticleSeeder::class,
         ]);
