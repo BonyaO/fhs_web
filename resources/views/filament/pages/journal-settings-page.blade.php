@@ -2,9 +2,9 @@
     <form wire:submit="save">
         {{ $this->form }}
         
-        <div class="mt-6">
-            {{ $this->getFormActions() }}
-        </div>
+        <x-filament-actions::actions 
+            :actions="$this->getFormActions()" 
+        />
     </form>
 
     <x-filament-actions::modals />

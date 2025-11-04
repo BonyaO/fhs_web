@@ -1,0 +1,449 @@
+/* ========================================
+   African Annals of Health Sciences - Journal Styles
+   ======================================== */
+
+/* Custom Properties */
+:root {
+    /* Colors - Professional Academic Palette */
+    --journal-primary: #1e3a8a; /* Deep Blue */
+    --journal-primary-dark: #1e40af;
+    --journal-primary-light: #3b82f6;
+    --journal-secondary: #059669; /* Forest Green */
+    --journal-accent: #dc2626; /* Accent Red */
+    --journal-gray-50: #f9fafb;
+    --journal-gray-100: #f3f4f6;
+    --journal-gray-200: #e5e7eb;
+    --journal-gray-700: #374151;
+    --journal-gray-900: #111827;
+    
+    /* Typography */
+    --font-serif: 'Merriweather', Georgia, serif;
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    
+    /* Spacing */
+    --content-max-width: 75ch;
+    --container-padding: 1.5rem;
+    
+    /* Transitions */
+    --transition-base: 150ms ease-in-out;
+    --transition-slow: 300ms ease-in-out;
+}
+
+/* ========================================
+   Typography
+   ======================================== */
+
+.font-serif {
+    font-family: var(--font-serif);
+}
+
+.font-sans {
+    font-family: var(--font-sans);
+}
+
+/* Article Content Typography */
+.article-content {
+    font-family: var(--font-serif);
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--journal-gray-900);
+}
+
+.article-content h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--journal-primary);
+}
+
+.article-content h3 {
+    font-size: 1.375rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--journal-primary-dark);
+}
+
+.article-content p {
+    margin-bottom: 1.25rem;
+}
+
+.article-content strong {
+    font-weight: 600;
+    color: var(--journal-gray-900);
+}
+
+.article-content em {
+    font-style: italic;
+}
+
+.article-content a {
+    color: var(--journal-primary-light);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color var(--transition-base);
+}
+
+.article-content a:hover {
+    color: var(--journal-primary-dark);
+}
+
+/* ========================================
+   Card Components
+   ======================================== */
+
+.article-card {
+    @apply bg-white rounded-lg border border-gray-200 overflow-hidden transition-all duration-300;
+    @apply hover:shadow-lg hover:border-blue-300;
+}
+
+.article-card-hover-lift {
+    transition: transform var(--transition-slow), box-shadow var(--transition-slow);
+}
+
+.article-card-hover-lift:hover {
+    transform: translateY(-4px);
+}
+
+.issue-card {
+    @apply bg-white rounded-lg overflow-hidden border border-gray-200;
+    @apply hover:shadow-xl transition-all duration-300;
+}
+
+.board-member-card {
+    @apply bg-white rounded-lg p-6 border border-gray-200;
+    @apply hover:shadow-lg hover:border-blue-300 transition-all duration-300;
+}
+
+/* ========================================
+   Buttons
+   ======================================== */
+
+.btn {
+    @apply px-6 py-2.5 rounded-lg font-semibold transition-all duration-200;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+}
+
+.btn-primary {
+    @apply bg-blue-600 text-white hover:bg-blue-700;
+    @apply focus:ring-blue-500;
+}
+
+.btn-secondary {
+    @apply bg-gray-600 text-white hover:bg-gray-700;
+    @apply focus:ring-gray-500;
+}
+
+.btn-success {
+    @apply bg-green-600 text-white hover:bg-green-700;
+    @apply focus:ring-green-500;
+}
+
+.btn-outline {
+    @apply border-2 border-blue-600 text-blue-600 hover:bg-blue-50;
+    @apply focus:ring-blue-500;
+}
+
+.btn-download {
+    @apply bg-red-600 text-white hover:bg-red-700;
+    @apply focus:ring-red-500;
+    @apply flex items-center justify-center space-x-2;
+}
+
+.btn-sm {
+    @apply px-4 py-2 text-sm;
+}
+
+.btn-lg {
+    @apply px-8 py-3 text-lg;
+}
+
+/* ========================================
+   Badges & Tags
+   ======================================== */
+
+.badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+}
+
+.badge-primary {
+    @apply bg-blue-100 text-blue-800;
+}
+
+.badge-success {
+    @apply bg-green-100 text-green-800;
+}
+
+.badge-warning {
+    @apply bg-yellow-100 text-yellow-800;
+}
+
+.badge-gray {
+    @apply bg-gray-100 text-gray-800;
+}
+
+.keyword-tag {
+    @apply inline-block px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm;
+    @apply hover:bg-blue-100 transition-colors cursor-pointer;
+}
+
+/* ========================================
+   Loading & Skeleton States
+   ======================================== */
+
+.skeleton {
+    @apply animate-pulse bg-gray-200 rounded;
+}
+
+.skeleton-text {
+    @apply h-4 bg-gray-200 rounded;
+}
+
+.skeleton-title {
+    @apply h-6 bg-gray-200 rounded w-3/4;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.skeleton-shimmer {
+    background: linear-gradient(
+        90deg,
+        #f3f4f6 0%,
+        #e5e7eb 50%,
+        #f3f4f6 100%
+    );
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite;
+}
+
+/* ========================================
+   Animations
+   ======================================== */
+
+/* Fade In */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.fade-in-delay-1 {
+    animation: fadeIn 0.5s ease-out 0.1s both;
+}
+
+.fade-in-delay-2 {
+    animation: fadeIn 0.5s ease-out 0.2s both;
+}
+
+.fade-in-delay-3 {
+    animation: fadeIn 0.5s ease-out 0.3s both;
+}
+
+/* Slide In from Bottom */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide-in-up {
+    animation: slideInUp 0.6s ease-out;
+}
+
+/* Scale In */
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.scale-in {
+    animation: scaleIn 0.4s ease-out;
+}
+
+/* ========================================
+   Toast Notifications
+   ======================================== */
+
+.toast {
+    @apply flex items-center space-x-3 p-4 rounded-lg shadow-lg;
+    @apply min-w-[300px] max-w-md;
+    animation: slideInUp 0.3s ease-out, fadeOut 0.3s ease-out 4.7s;
+}
+
+.toast-success {
+    @apply bg-green-50 border-l-4 border-green-500 text-green-900;
+}
+
+.toast-error {
+    @apply bg-red-50 border-l-4 border-red-500 text-red-900;
+}
+
+.toast-info {
+    @apply bg-blue-50 border-l-4 border-blue-500 text-blue-900;
+}
+
+.toast-warning {
+    @apply bg-yellow-50 border-l-4 border-yellow-500 text-yellow-900;
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+/* ========================================
+   Citation Box
+   ======================================== */
+
+.citation-box {
+    @apply bg-gray-50 border border-gray-200 rounded-lg p-4;
+    @apply font-mono text-sm;
+}
+
+.citation-format {
+    @apply bg-white border border-gray-200 rounded-lg p-4 mb-3;
+}
+
+.citation-format:last-child {
+    @apply mb-0;
+}
+
+/* ========================================
+   Stats Display
+   ======================================== */
+
+.stat-card {
+    @apply text-center p-6 bg-white rounded-lg border border-gray-200;
+}
+
+.stat-number {
+    @apply text-4xl font-bold text-blue-600 mb-2;
+}
+
+.stat-label {
+    @apply text-sm text-gray-600 font-medium;
+}
+
+/* ========================================
+   Search Highlighting
+   ======================================== */
+
+.search-highlight {
+    @apply bg-yellow-200 font-medium px-1 rounded;
+}
+
+/* ========================================
+   Responsive Utilities
+   ======================================== */
+
+.content-container {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.readable-width {
+    max-width: var(--content-max-width);
+}
+
+/* ========================================
+   Print Styles
+   ======================================== */
+
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    
+    body {
+        font-size: 12pt;
+        line-height: 1.6;
+    }
+    
+    .article-content {
+        font-size: 11pt;
+    }
+    
+    a {
+        text-decoration: none;
+        color: #000;
+    }
+    
+    .article-card,
+    .board-member-card {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+}
+
+/* ========================================
+   Accessibility
+   ======================================== */
+
+/* Focus styles */
+*:focus-visible {
+    @apply outline-none ring-2 ring-blue-500 ring-offset-2;
+}
+
+/* Skip link */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+.sr-only:focus-visible {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: 1rem;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

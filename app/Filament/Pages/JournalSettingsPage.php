@@ -7,6 +7,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Pages\Page;
 use Filament\Notifications\Notification;
+use Filament\Actions\Action; // IMPORTANT: Use this import
 
 class JournalSettingsPage extends Page
 {
@@ -29,7 +30,7 @@ class JournalSettingsPage extends Page
         $settings = JournalSettings::first();
         $this->form->fill($settings ? $settings->toArray() : []);
     }
-
+    
     public function form(Form $form): Form
     {
         return $form
@@ -314,10 +315,10 @@ class JournalSettingsPage extends Page
         }
     }
 
-    protected function getFormActions(): array
+     protected function getFormActions(): array
     {
         return [
-            Forms\Components\Actions\Action::make('save')
+            Action::make('save')
                 ->label('Save Settings')
                 ->submit('save')
                 ->icon('heroicon-o-check'),
