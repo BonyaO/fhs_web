@@ -3,7 +3,7 @@
         <!-- Top Bar with FHS Link -->
         <div class="border-b border-gray-100 py-2">
             <div class="flex items-center justify-between text-sm">
-                <a href="{{ route('home') }}" class="text-gray-600 hover:text-blue-600 transition-colors flex items-center space-x-1">
+                <a href="/" class="text-gray-600 hover:text-blue-600 transition-colors flex items-center space-x-1">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                     </svg>

@@ -22,7 +22,7 @@
                     <li><a href="{{ route('journal.archive') }}" class="hover:text-white transition-colors">Browse Archive</a></li>
                     <li><a href="{{ route('journal.search') }}" class="hover:text-white transition-colors">Search Articles</a></li>
                     <li><a href="{{ route('journal.editorial-board') }}" class="hover:text-white transition-colors">Editorial Board</a></li>
-                    <li><a href="{{ route('home') }}" class="hover:text-white transition-colors">FHS Website</a></li>
+                    <li><a href="/" class="hover:text-white transition-colors">FHS Website</a></li>
                 </ul>
             </div>
 
@@ -87,7 +87,7 @@
         <div class="border-t border-gray-800 pt-8 text-center text-sm">
             <p>&copy; {{ date('Y') }} African Annals of Health Sciences. All rights reserved.</p>
             <p class="mt-2">
-                Published by <a href="{{ route('home') }}" class="text-blue-400 hover:text-blue-300 transition-colors">Faith Health Solutions</a>
+                Published by <a href="/" class="text-blue-400 hover:text-blue-300 transition-colors">Faculty of Health Sciences</a>
             </p>
         </div>
     </div>

@@ -36,7 +36,7 @@ class JournalController extends Controller
             'total_volumes' => Volume::count(),
             'total_issues' => \App\Models\Issue::count(),
             'total_articles' => Article::where('status', 'published')->count(),
-            'total_downloads' => \App\Models\ArticleView::where('type', 'download')->count(),
+            'total_downloads' => \App\Models\ArticleView::where('view_type', 'pdf_download')->count(),
         ];
 
         return view('journal.home', compact('latestIssue', 'recentArticles', 'stats'));

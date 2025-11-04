@@ -23,11 +23,11 @@ class ArticleController extends Controller
         
         // Get view and download counts
         $viewCount = ArticleView::where('article_id', $article->id)
-            ->where('type', 'view')
+            ->where('view_type', 'abstract_view')
             ->count();
         
         $downloadCount = ArticleView::where('article_id', $article->id)
-            ->where('type', 'download')
+            ->where('view_type', 'pdf_download')
             ->count();
         
         // Get related articles (same issue or similar keywords)
@@ -79,7 +79,7 @@ class ArticleController extends Controller
     {
         // Get the latest PDF file
         $file = $article->files()
-            ->where('type', 'pdf')
+            ->where('view_type', 'pdf')
             ->latest()
             ->first();
         
