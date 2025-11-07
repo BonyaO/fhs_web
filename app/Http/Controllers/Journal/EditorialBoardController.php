@@ -15,7 +15,7 @@ class EditorialBoardController extends Controller
     public function index(Request $request): View
     {
         // Get all board members
-        $boardMembers = EditorialBoard::orderBy('sort_order')
+        $boardMembers = EditorialBoard::orderBy('order')
             ->orderBy('name')
             ->get();
         

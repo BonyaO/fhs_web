@@ -210,7 +210,7 @@
             <div class="mb-8">
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">Abstract</h2>
                 <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
-                    {!! nl2br(e($article->abstract)) !!}
+                    {!! $article->abstract !!}
                 </div>
             </div>
 
@@ -342,7 +342,7 @@
                 <div class="space-y-4">
                     @foreach($relatedArticles as $related)
                     <div class="pb-4 border-b border-gray-100 last:border-0 last:pb-0">
-                        <a href="{{ route('journal.article', $related->slug) }}" 
+                        <a href="{{ route('journal.article.show', $related->slug) }}" 
                            class="text-sm font-medium text-gray-900 hover:text-primary-600 line-clamp-2 mb-1 block">
                             {{ $related->title }}
                         </a>
