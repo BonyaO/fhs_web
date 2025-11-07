@@ -42,6 +42,7 @@ class Author extends Model
     {
         return $this->belongsToMany(Article::class)
             ->withPivot('author_order', 'is_corresponding', 'affiliation_at_time', 'contribution')
+            ->withTimestamps(false)
             ->orderBy('published_at', 'desc');
     }
 

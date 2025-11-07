@@ -89,6 +89,7 @@ class Article extends Model
     {
         return $this->belongsToMany(Author::class)
             ->withPivot('author_order', 'is_corresponding', 'affiliation_at_time', 'contribution')
+            ->withTimestamps(false)
             ->orderBy('author_order');
     }
 
@@ -245,7 +246,10 @@ class Article extends Model
      */
     public function getCitationAttribute(): string
     {
-        $authors = $this->formatted_authors;
+        $authors = $this->authors->map(fn($author) => $author->citation_name)->take(3);
+        $authorString = $authors->count() > 3 
+            ? $authors->join(', ') . ', et al.' 
+            : $authors->join(', ', ' & ');
         $year = $this->publication_date?->year ?? $this->issue->volume->year;
         $title = $this->title;
         $journal = config('journal.name', 'African Annals of Health Sciences');
@@ -253,7 +257,7 @@ class Article extends Model
         $issue = $this->issue->number;
         $pages = $this->page_range;
 
-        $citation = "{$authors} ({$year}). {$title}. {$journal}, {$volume}({$issue})";
+        $citation = "{$authorString} ({$year}). {$title}. {$journal}, {$volume}({$issue})";
         
         if ($pages) {
             $citation .= ", {$pages}";
