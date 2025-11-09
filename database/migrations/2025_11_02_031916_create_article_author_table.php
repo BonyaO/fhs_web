@@ -19,7 +19,6 @@ return new class extends Migration
             $table->boolean('is_corresponding')->default(false)->comment('Corresponding author flag');
             $table->text('affiliation_at_time')->nullable()->comment('Affiliation when article published');
             $table->text('contribution')->nullable()->comment('Author\'s specific contribution');
-            $table->timestamp('created_at')->useCurrent();
 
             // Indexes
             $table->unique(['article_id', 'author_id']);

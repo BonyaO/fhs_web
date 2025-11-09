@@ -40,10 +40,9 @@ class Author extends Model
      */
     public function articles(): BelongsToMany
     {
-        return $this->belongsToMany(Article::class)
+        return $this->belongsToMany(Article::class, 'article_author')
             ->withPivot('author_order', 'is_corresponding', 'affiliation_at_time', 'contribution')
-            ->withTimestamps(false)
-            ->orderBy('published_at', 'desc');
+            ->orderBy('articles.published_at', 'desc');
     }
 
     /**
@@ -51,11 +50,10 @@ class Author extends Model
      */
     public function publishedArticles(): BelongsToMany
     {
-        return $this->belongsToMany(Article::class)
+        return $this->belongsToMany(Article::class, 'article_author')
             ->where('is_published', true)
             ->withPivot('author_order', 'is_corresponding', 'affiliation_at_time', 'contribution')
-            ->withTimestamps()
-            ->orderBy('published_at', 'desc');
+            ->orderBy('articles.published_at', 'desc');
     }
 
     /**

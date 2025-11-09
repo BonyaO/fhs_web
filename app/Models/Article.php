@@ -87,10 +87,9 @@ class Article extends Model
      */
     public function authors(): BelongsToMany
     {
-        return $this->belongsToMany(Author::class)
+        return $this->belongsToMany(Author::class, 'article_author')
             ->withPivot('author_order', 'is_corresponding', 'affiliation_at_time', 'contribution')
-            ->withTimestamps(false)
-            ->orderBy('author_order');
+            ->orderBy('article_author.author_order');
     }
 
     /**

@@ -190,21 +190,7 @@
                                         </a>
                                     </h3>
 
-                                    <!-- Authors -->
-                                    <div class="mb-3">
-                                        <p class="text-gray-700">
-                                            @foreach($article->authors as $author)
-                                                <a href="{{ route('journal.author', $author->slug) }}" 
-                                                   class="hover:text-blue-600 hover:underline">
-                                                    {{ $author->name }}
-                                                </a>
-                                                @if($author->pivot->is_corresponding)
-                                                    <sup class="text-blue-600">*</sup>
-                                                @endif
-                                                @if(!$loop->last), @endif
-                                            @endforeach
-                                        </p>
-                                    </div>
+                                   
 
                                     <!-- Page Numbers & DOI -->
                                     <div class="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-4">

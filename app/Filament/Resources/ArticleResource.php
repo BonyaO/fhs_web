@@ -101,7 +101,6 @@ class ArticleResource extends Resource
                 Forms\Components\Section::make('authors')
                     ->schema([
                         Forms\Components\Repeater::make('authors')
-                            ->relationship()
                             ->schema([
                                 Forms\Components\Select::make('author_id')
                                     ->label('Author')
@@ -263,9 +262,27 @@ class ArticleResource extends Resource
                                     ->required()
                                     ->directory('journal/articles')
                                     ->disk('public')
-                                    ->acceptedFileTypes(['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'])
+                                    ->acceptedFileTypes([
+                                        'application/pdf', 
+                                        'application/msword', 
+                                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                                    ])
                                     ->maxSize(10240)
                                     ->helperText('PDF or Word document (max 10MB)')
+                                    ->storeFileNamesIn('original_filename')
+                                    ->afterStateUpdated(function ($state, callable $set, callable $get) {
+                                        if ($state) {
+                                            // Get the uploaded file
+                                            $file = is_array($state) ? $state[0] : $state;
+                                            
+                                            // Set file size and mime type
+                                            if ($file instanceof \Illuminate\Http\UploadedFile) {
+                                                $set('file_size', $file->getSize());
+                                                $set('mime_type', $file->getMimeType());
+                                                $set('original_filename', $file->getClientOriginalName());
+                                            }
+                                        }
+                                    })
                                     ->columnSpan(2),
 
                                 Forms\Components\Select::make('file_type')
@@ -286,6 +303,10 @@ class ArticleResource extends Resource
                                     ->helperText('The main article PDF')
                                     ->columnSpan(1),
 
+                                Forms\Components\Hidden::make('file_size'),
+                                Forms\Components\Hidden::make('mime_type'),
+                                Forms\Components\Hidden::make('original_filename'),
+
                                 Forms\Components\TextInput::make('version')
                                     ->label('Version')
                                     ->default('1.0')
@@ -299,6 +320,7 @@ class ArticleResource extends Resource
                             ])
                             ->columns(4)
                             ->defaultItems(1)
+                            ->reorderable()
                             ->collapsible()
                             ->itemLabel(fn (array $state): ?string => 
                                 $state['file_type'] ? ucfirst($state['file_type']) : 'File'
