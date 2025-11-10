@@ -1,82 +1,95 @@
-<footer class="bg-gray-900 text-gray-300 mt-16">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-            <!-- About Section -->
+{{-- resources/views/partials/journal/footer.blade.php --}}
+<footer style="background-color: #0A2540; color: white; padding: 3rem 0 1.5rem; margin-top: 4rem;">
+    <div class="container-default">
+        <div style="display: grid; gap: 2rem; grid-template-columns: repeat(3, 1fr); margin-bottom: 2rem;">
+            <!-- Left Column: About Section -->
             <div>
-                <h3 class="text-white font-semibold text-lg mb-4">About the Journal</h3>
-                <p class="text-sm leading-relaxed mb-4">
+                <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem; color: white;">About the Journal</h3>
+                <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.875rem; line-height: 1.6; margin-bottom: 1rem;">
                     African Annals of Health Sciences is a peer-reviewed open access journal dedicated to advancing health sciences research across the African continent.
                 </p>
-                <div class="flex items-center space-x-3">
-                    @if(isset($journalSettings->issn))
-                        <span class="text-sm">ISSN: {{ $journalSettings->issn }}</span>
-                    @endif
+                @if(isset($journalSettings->issn))
+                <div style="color: rgba(255, 255, 255, 0.7); font-size: 0.875rem;">
+                    <strong>ISSN:</strong> {{ $journalSettings->issn }}
                 </div>
-            </div>
+                @endif
 
-            <!-- Quick Links -->
-            <div>
-                <h3 class="text-white font-semibold text-lg mb-4">Quick Links</h3>
-                <ul class="space-y-2 text-sm">
-                    <li><a href="{{ route('journal.home') }}" class="hover:text-white transition-colors">Home</a></li>
-                    <li><a href="{{ route('journal.archive') }}" class="hover:text-white transition-colors">Browse Archive</a></li>
-                    <li><a href="{{ route('journal.search') }}" class="hover:text-white transition-colors">Search Articles</a></li>
-                    <li><a href="{{ route('journal.editorial-board') }}" class="hover:text-white transition-colors">Editorial Board</a></li>
-                    <li><a href="/" class="hover:text-white transition-colors">FHS Website</a></li>
-                </ul>
-            </div>
-
-            <!-- For Authors -->
-            <div>
-                <h3 class="text-white font-semibold text-lg mb-4">For Authors</h3>
-                <ul class="space-y-2 text-sm">
-                    <li><a href="{{ route('journal.submission') }}" class="hover:text-white transition-colors">Submission Guidelines</a></li>
-                    <li><a href="{{ route('journal.policies') }}" class="hover:text-white transition-colors">Publication Ethics</a></li>
-                    <li><a href="{{ route('journal.policies') }}#copyright" class="hover:text-white transition-colors">Copyright Policy</a></li>
-                    <li><a href="{{ route('journal.policies') }}#peer-review" class="hover:text-white transition-colors">Peer Review Process</a></li>
-                </ul>
-            </div>
-
-            <!-- Contact & Social -->
-            <div>
-                <h3 class="text-white font-semibold text-lg mb-4">Contact & Connect</h3>
-                <ul class="space-y-2 text-sm mb-4">
+                <!-- Contact Information -->
+                <div style="margin-top: 2rem;">
+                    <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem; color: white;">Contact</h3>
+                    <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.875rem; line-height: 1.6;">
+                        Faculty of Health Sciences<br>
+                        University of Bamenda<br>
+                        Cameroon
+                    </p>
                     @if(isset($journalSettings->contact_email))
-                        <li class="flex items-start space-x-2">
-                            <svg class="w-5 h-5 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                            </svg>
-                            <a href="mailto:{{ $journalSettings->contact_email }}" class="hover:text-white transition-colors break-all">
-                                {{ $journalSettings->contact_email }}
-                            </a>
-                        </li>
+                    <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.875rem; margin-top: 0.5rem;">
+                        <strong>Email:</strong> <a href="mailto:{{ $journalSettings->contact_email }}" style="color: #00B4A6; text-decoration: none;" onmouseover="this.style.color='#00D4C6'" onmouseout="this.style.color='#00B4A6'">{{ $journalSettings->contact_email }}</a>
+                    </p>
+                    @else
+                    <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.875rem; margin-top: 0.5rem;">
+                        <strong>Email:</strong> <a href="mailto:editor@africanannals.org" style="color: #00B4A6; text-decoration: none;" onmouseover="this.style.color='#00D4C6'" onmouseout="this.style.color='#00B4A6'">editor@africanannals.org</a>
+                    </p>
                     @endif
-                </ul>
-                
-                <!-- Social Media Links (if available) -->
-                <div class="flex items-center space-x-3">
-                    {{-- Add social media links when available --}}
-                    {{-- Example:
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="Twitter">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"/></svg>
-                    </a>
-                    --}}
                 </div>
+            </div>
+
+            <!-- Middle Column: Quick Links -->
+            <div>
+                <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem; color: white;">Quick Links</h3>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 0.5rem;">
+                        <a href="{{ route('journal.home') }}" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 0.875rem; transition: color 200ms ease-in-out;" onmouseover="this.style.color='#00B4A6'" onmouseout="this.style.color='rgba(255, 255, 255, 0.8)'">Home</a>
+                    </li>
+                    <li style="margin-bottom: 0.5rem;">
+                        <a href="{{ route('journal.archive') }}" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 0.875rem; transition: color 200ms ease-in-out;" onmouseover="this.style.color='#00B4A6'" onmouseout="this.style.color='rgba(255, 255, 255, 0.8)'">Browse Archive</a>
+                    </li>
+                    <li style="margin-bottom: 0.5rem;">
+                        <a href="{{ route('journal.editorial-board') }}" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 0.875rem; transition: color 200ms ease-in-out;" onmouseover="this.style.color='#00B4A6'" onmouseout="this.style.color='rgba(255, 255, 255, 0.8)'">Editorial Board</a>
+                    </li>
+                    <li style="margin-bottom: 0.5rem;">
+                        <a href="/" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 0.875rem; transition: color 200ms ease-in-out;" onmouseover="this.style.color='#00B4A6'" onmouseout="this.style.color='rgba(255, 255, 255, 0.8)'">FHS Website</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Right Column: For Authors -->
+            <div>
+                <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem; color: white;">For Authors</h3>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 0.5rem;">
+                        <a href="{{ route('journal.submission') }}" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 0.875rem; transition: color 200ms ease-in-out;" onmouseover="this.style.color='#00B4A6'" onmouseout="this.style.color='rgba(255, 255, 255, 0.8)'">Submission Guidelines</a>
+                    </li>
+                    <li style="margin-bottom: 0.5rem;">
+                        <a href="{{ route('journal.policies') }}" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 0.875rem; transition: color 200ms ease-in-out;" onmouseover="this.style.color='#00B4A6'" onmouseout="this.style.color='rgba(255, 255, 255, 0.8)'">Publication Ethics</a>
+                    </li>
+                    <li style="margin-bottom: 0.5rem;">
+                        <a href="{{ route('journal.policies') }}#copyright" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 0.875rem; transition: color 200ms ease-in-out;" onmouseover="this.style.color='#00B4A6'" onmouseout="this.style.color='rgba(255, 255, 255, 0.8)'">Copyright Policy</a>
+                    </li>
+                    <li style="margin-bottom: 0.5rem;">
+                        <a href="{{ route('journal.policies') }}#peer-review" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 0.875rem; transition: color 200ms ease-in-out;" onmouseover="this.style.color='#00B4A6'" onmouseout="this.style.color='rgba(255, 255, 255, 0.8)'">Peer Review Process</a>
+                    </li>
+                </ul>
             </div>
         </div>
 
         <!-- Open Access Badge -->
-        <div class="border-t border-gray-800 pt-8 mb-8">
-            <div class="flex flex-col md:flex-row items-center justify-center md:justify-between space-y-4 md:space-y-0">
-                <div class="flex items-center space-x-3">
-                    <div class="bg-green-600 text-white px-4 py-2 rounded-lg font-semibold text-sm">
+        <div style="border-top: 1px solid rgba(255, 255, 255, 0.2); padding-top: 2rem; margin-bottom: 2rem;">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center;">
+                <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; justify-content: center;">
+                    <div style="background-color: #10B981; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 600; font-size: 0.875rem;">
                         Open Access
                     </div>
-                    <span class="text-sm">Licensed under CC BY 4.0</span>
+                    <span style="font-size: 0.875rem; color: rgba(255, 255, 255, 0.8);">Licensed under CC BY 4.0</span>
                 </div>
-                <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer" class="text-sm hover:text-white transition-colors flex items-center space-x-2">
+                <a href="https://creativecommons.org/licenses/by/4.0/" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 0.875rem; display: flex; align-items: center; gap: 0.5rem;"
+                   onmouseover="this.style.color='#00B4A6'" 
+                   onmouseout="this.style.color='rgba(255, 255, 255, 0.8)'">
                     <span>Learn about our license</span>
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg style="width: 1rem; height: 1rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                     </svg>
                 </a>
@@ -84,11 +97,29 @@
         </div>
 
         <!-- Copyright -->
-        <div class="border-t border-gray-800 pt-8 text-center text-sm">
-            <p>&copy; {{ date('Y') }} African Annals of Health Sciences. All rights reserved.</p>
-            <p class="mt-2">
-                Published by <a href="/" class="text-blue-400 hover:text-blue-300 transition-colors">Faculty of Health Sciences</a>
+        <div style="border-top: 1px solid rgba(255, 255, 255, 0.2); padding-top: 1.5rem; text-align: center;">
+            <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem; margin-bottom: 0.5rem;">
+                © {{ date('Y') }} African Annals of Health Sciences. All rights reserved.
+            </p>
+            <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem;">
+                Published by <a href="/" style="color: #00B4A6; text-decoration: none;" onmouseover="this.style.color='#00D4C6'" onmouseout="this.style.color='#00B4A6'">Faculty of Health Sciences, University of Bamenda</a>
             </p>
         </div>
+        
     </div>
 </footer>
+
+<style>
+/* Responsive Grid for Footer */
+@media (max-width: 767px) {
+    footer > div > div:first-child {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    footer > div > div:first-child {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+</style>

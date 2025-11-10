@@ -21,8 +21,6 @@
         <!-- Header -->
         @include('partials.journal.header')
 
-        <!-- Navigation -->
-        @include('partials.journal.navigation')
 
         <!-- Main Content -->
         <main id="main-content" class="flex-grow">

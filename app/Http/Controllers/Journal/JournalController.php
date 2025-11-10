@@ -48,7 +48,7 @@ class JournalController extends Controller
      */
     public function about(): View
     {
-        $journalSettings = $this->getJournalSettings();
+        $journalSettings = JournalSettings::getInstance();
         
         $breadcrumbs = [
             ['label' => 'Home', 'url' => route('journal.home')],
