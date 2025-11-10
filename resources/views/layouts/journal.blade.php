@@ -1,30 +1,21 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <!-- SEO Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="@yield('meta_description', 'African Annals of Health Sciences - A peer-reviewed open access journal')">
     <title>@yield('title', 'African Annals of Health Sciences')</title>
-    <meta name="description" content="@yield('meta_description', 'African Annals of Health Sciences - A peer-reviewed open access journal dedicated to advancing health sciences research in Africa.')">
     
-    @stack('meta')
-
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=merriweather:300,400,700|inter:400,500,600,700&display=swap" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
     <!-- Styles -->
-    @vite(['resources/css/app.css', 'resources/css/journal.css'])
+    @vite(['resources/css/app.css', 'resources/css/journal.css', 'resources/js/app.js'])
     
     @stack('styles')
 </head>
-<body class="font-sans antialiased bg-gray-50 text-gray-900">
-    <!-- Skip to main content for accessibility -->
-    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-blue-600 focus:text-white focus:rounded-lg">
-        Skip to main content
-    </a>
+<body class="padding-top: 64px;">
 
     <div class="min-h-screen flex flex-col">
         <!-- Header -->

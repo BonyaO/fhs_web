@@ -12,25 +12,7 @@
 @endsection
 
 @section('content')
-<!-- Breadcrumbs -->
-<nav class="bg-gray-50 border-b border-gray-200">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <ol class="flex items-center space-x-2 text-sm">
-            @foreach($breadcrumbs as $index => $crumb)
-                @if($loop->last)
-                    <li class="text-gray-600 font-medium">{{ $crumb['label'] }}</li>
-                @else
-                    <li>
-                        <a href="{{ $crumb['url'] }}" class="text-blue-600 hover:text-blue-800 hover:underline">
-                            {{ $crumb['label'] }}
-                        </a>
-                    </li>
-                    <li class="text-gray-400">/</li>
-                @endif
-            @endforeach
-        </ol>
-    </div>
-</nav>
+
 
 <!-- Issue Header -->
 <section class="py-12 bg-gradient-to-br from-blue-50 to-purple-50">

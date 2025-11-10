@@ -7,6 +7,7 @@ use App\Models\Volume;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Models\JournalSettings;
 
 class JournalController extends Controller
 {
@@ -62,7 +63,7 @@ class JournalController extends Controller
      */
     public function submission(): View
     {
-        $journalSettings = $this->getJournalSettings();
+        $journalSettings = JournalSettings::getInstance();
         
         $breadcrumbs = [
             ['label' => 'Home', 'url' => route('journal.home')],
@@ -77,7 +78,7 @@ class JournalController extends Controller
      */
     public function policies(): View
     {
-        $journalSettings = $this->getJournalSettings();
+        $journalSettings = JournalSettings::getInstance();
         
         $breadcrumbs = [
             ['label' => 'Home', 'url' => route('journal.home')],
@@ -87,23 +88,5 @@ class JournalController extends Controller
         return view('journal.policies', compact('journalSettings', 'breadcrumbs'));
     }
 
-    /**
-     * Get journal settings (cached)
-     * This will be replaced with actual settings from database
-     */
-    private function getJournalSettings(): object
-    {
-        // TODO: Replace with actual database query
-        // For now, return default settings
-        return (object) [
-            'name' => 'African Annals of Health Sciences',
-            'issn' => 'XXXX-XXXX', // To be updated
-            'contact_email' => 'editor@africanannals.org',
-            'description' => 'A peer-reviewed open access journal dedicated to advancing health sciences research in Africa.',
-            'scope' => 'The African Annals of Health Sciences publishes original research, reviews, and case studies across all areas of health sciences relevant to Africa.',
-            'frequency' => 'Quarterly',
-            'open_access' => true,
-            'license' => 'CC BY 4.0',
-        ];
-    }
+   
 }

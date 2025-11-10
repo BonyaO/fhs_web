@@ -1,35 +1,20 @@
-<header class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Top Bar with FHS Link -->
-        <div class="border-b border-gray-100 py-2">
-            <div class="flex items-center justify-between text-sm">
-                <a href="/" class="text-gray-600 hover:text-blue-600 transition-colors flex items-center space-x-1">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-                    </svg>
-                    <span>Back to FHS Website</span>
-                </a>
-                <div class="flex items-center space-x-4">
-                    <a href="{{ route('journal.about') }}" class="text-gray-600 hover:text-blue-600 transition-colors hidden sm:inline">About</a>
-                    <a href="{{ route('journal.submission') }}" class="text-gray-600 hover:text-blue-600 transition-colors hidden sm:inline">Submit</a>
-                </div>
-            </div>
-        </div>
+<header class="journal-header-sticky">
+    <div class="container-fluid">
 
         <!-- Main Header -->
-        <div class="py-4 md:py-6">
+        <div class="header-content">
             <div class="flex items-center justify-between">
                 <!-- Logo & Title -->
                 <div class="flex items-center space-x-3 md:space-x-4">
                     @if(file_exists(public_path('images/journal/logo.png')))
-                        <img src="{{ asset('images/journal/logo.png') }}" alt="African Annals of Health Sciences Logo" class="h-12 w-12 md:h-16 md:w-16">
+                        <img src="{{ asset('images/journal/logo.png') }}" alt="African Annals of Health Sciences Logo" class="logo-image">
                     @else
                         <div class="h-12 w-12 md:h-16 md:w-16 bg-blue-600 rounded-lg flex items-center justify-center">
                             <span class="text-white font-bold text-xl md:text-2xl">AAHS</span>
                         </div>
                     @endif
                     <div>
-                        <h1 class="text-lg md:text-2xl font-bold text-gray-900 font-serif">
+                        <h1 class="logo-text">
                             <a href="{{ route('journal.home') }}" class="hover:text-blue-600 transition-colors">
                                 African Annals of Health Sciences
                             </a>
